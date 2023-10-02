@@ -13,7 +13,7 @@ def binarytodecimal(binary):
     return decimal
 
 
-def rng(maximum):
+def rng(maximum, shot_count):
     simulator = AerSimulator()
 
 
@@ -38,7 +38,7 @@ def rng(maximum):
 
 
     # Execute the circuit on the aer simulator
-    job = simulator.run(compiled_circuit, shots=60)
+    job = simulator.run(compiled_circuit, shots=shot_count)
 
 
     # Grab results from the job
@@ -56,7 +56,7 @@ def rng(maximum):
             init_occ = init_occ + counts[random_numbers[i]]
             numbs_below_max.append(random_numbers[i])
 
-    x = 60  - init_occ
+    x = shot_count  - init_occ
     print("initial occ sum is ", init_occ)
     numb_decimal = []
     occurrences = []
@@ -101,13 +101,20 @@ def rng(maximum):
     return numbs_below_max2, occurrences
 
 
-numbs, occ = rng(50)
+numbs, occ = rng(50, 1000)
 
+rng_dict = {}
 
-print("numbs: ", sorted(numbs))
-print("occ: ",occ)
-print("numbs len: ",len(numbs))
-print("occ len",len(occ))
+for i in range(0, len(numbs)):
+    if numbs[i] in rng_dict:
+        rng_dict[numbs[i]] += occ[i]
+    else:
+        rng_dict[numbs[i]] = occ[i]
+
+print("rng_dict: ",rng_dict)
+print(numbs)
+
+print("len(rng_dict): ", len(rng_dict))
 print("occ sum: ", sum(occ))
 
 
