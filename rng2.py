@@ -101,7 +101,7 @@ def rng(maximum, shot_count):
     return numbs_below_max2, occurrences
 
 
-numbs, occ = rng(50, 1000)
+numbs, occ = rng(50, 10)
 
 rng_dict = {}
 
