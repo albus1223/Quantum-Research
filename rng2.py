@@ -52,7 +52,7 @@ def rng(maximum, shot_count):
     init_occ = 0
     numbs_below_max = []
     for i in range(0, len(random_numbers)):
-        if int(binarytodecimal(random_numbers[i])) <=50:
+        if int(binarytodecimal(random_numbers[i])) <=maximum:
             init_occ = init_occ + counts[random_numbers[i]]
             numbs_below_max.append(random_numbers[i])
 
