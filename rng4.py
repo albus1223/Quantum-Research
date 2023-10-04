@@ -102,17 +102,17 @@ def rng(maximum, shot_count, qubit_count):
     numbs_below_max2 = []
     for i in range(0, len(numbs_below_max)):
         numbs_below_max2.append(binarytodecimal(str(numbs_below_max[i])))
-    return numbs_below_max2
-
-
-numbs, occ = rng(360, 60, 9)
+    return numbs_below_max2[0]
 
 
 
-def rng2(maximum, rng, shot_count, qubit_count):
 
 
-    gate = qi.Operator([[,], [,]])
+
+def rng2(maximum, shot_count, qubit_count):
+
+
+    gate = qi.Operator([[math.cos(rng(360, 10, 9)),math.sin(rng(360, 10, 9))], [-1*(math.sin(rng(360, 10, 9))),math.cos(rng(360, 10, 9))]])
 
     simulator = AerSimulator()
 
@@ -123,7 +123,7 @@ def rng2(maximum, rng, shot_count, qubit_count):
 
     # Add a H gate on qubit 0
     for i in range(qubit_count):
-        circuit.h(i)
+        circuit.unitary(gate, [i], label="Haddy Daddy")
 
 
     # Map the quantum measurement to the classical bits
@@ -169,7 +169,7 @@ def rng2(maximum, rng, shot_count, qubit_count):
             # Create a new circuit
             new_circ = QuantumCircuit(qubit_count, qubit_count)
             for j in range(qubit_count):
-                new_circ.h(j)
+                new_circ.unitary(gate, [j], label="Haddy Daddy")
             for i in range(0, qubit_count-1):
                 new_circ.measure([i, i+1], [i, i+1])
             compiled_new_circ = transpile(new_circ, newsim)
@@ -197,3 +197,29 @@ def rng2(maximum, rng, shot_count, qubit_count):
     for i in range(0, len(numbs_below_max)):
         numbs_below_max2.append(binarytodecimal(str(numbs_below_max[i])))
     return numbs_below_max2
+
+
+numbs, occ = rng2(50, 60, 6)
+
+rng_dict = {}
+
+for i in range(0, len(numbs)):
+    if numbs[i] in rng_dict:
+        rng_dict[numbs[i]] += occ[i]
+    else:
+        rng_dict[numbs[i]] = occ[i]
+
+print("rng_dict: ",rng_dict)
+print(numbs)
+
+print("len(rng_dict): ", len(rng_dict))
+print("occ sum: ", sum(occ))
+
+
+plt.plot(numbs, occ, linewidth=1)
+
+
+plt.xlabel('Number')
+plt.ylabel('Occurrences')
+plt.title('10-Qubit RNG')
+plt.show()
