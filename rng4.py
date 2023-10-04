@@ -105,7 +105,7 @@ def rng(maximum, shot_count, qubit_count):
     return numbs_below_max2
 
 
-numbs, occ = rng(50, 60, 6)
+numbs, occ = rng(360, 60, 9)
 
 
 
