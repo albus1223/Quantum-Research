@@ -53,7 +53,6 @@ def rng(maximum, shot_count, qubit_count):
     # Returns counts
     counts = result.get_counts(compiled_circuit)
     random_numbers = list(counts.keys())
-    print("len(random_numbers): ",len(random_numbers))
     init_occ = 0
     numbs_below_max = []
     for i in range(0, len(random_numbers)):
@@ -62,7 +61,7 @@ def rng(maximum, shot_count, qubit_count):
             numbs_below_max.append(random_numbers[i])
 
     x = shot_count  - init_occ
-    print("initial occ sum is ", init_occ)
+
     numb_decimal = []
     occurrences = []
 
@@ -87,7 +86,6 @@ def rng(maximum, shot_count, qubit_count):
 
             binary_new_number = binarytodecimal((new_number))
 
-            print("binary_new_number: ", binary_new_number)
             if binary_new_number <= maximum:
                 break
 
@@ -102,9 +100,7 @@ def rng(maximum, shot_count, qubit_count):
     numbs_below_max2 = []
     for i in range(0, len(numbs_below_max)):
         numbs_below_max2.append(binarytodecimal(str(numbs_below_max[i])))
-    return numbs_below_max2[0]
-
-
+    return (math.pi/180) * (numbs_below_max2[0])
 
 
 
@@ -114,7 +110,7 @@ def rng2(maximum, shot_count, qubit_count):
 
     gate = qi.Operator([[math.cos(rng(360, 10, 9)),math.sin(rng(360, 10, 9))], [-1*(math.sin(rng(360, 10, 9))),math.cos(rng(360, 10, 9))]])
 
-    simulator = AerSimulator()
+    simulator2 = AerSimulator()
 
 
     # Create a Quantum Circuit acting on the q register
@@ -133,11 +129,11 @@ def rng2(maximum, shot_count, qubit_count):
 
     # Compile the circuit for the support instruction set (basis_gates)
     # and topology (coupling_map) of the backend
-    compiled_circuit = transpile(circuit, simulator)
+    compiled_circuit = transpile(circuit, simulator2)
 
 
     # Execute the circuit on the aer simulator
-    job = simulator.run(compiled_circuit, shots=shot_count)
+    job = simulator2.run(compiled_circuit, shots=shot_count)
 
 
     # Grab results from the job
@@ -147,7 +143,6 @@ def rng2(maximum, shot_count, qubit_count):
     # Returns counts
     counts = result.get_counts(compiled_circuit)
     random_numbers = list(counts.keys())
-    print("len(random_numbers): ",len(random_numbers))
     init_occ = 0
     numbs_below_max = []
     for i in range(0, len(random_numbers)):
@@ -156,7 +151,6 @@ def rng2(maximum, shot_count, qubit_count):
             numbs_below_max.append(random_numbers[i])
 
     x = shot_count  - init_occ
-    print("initial occ sum is ", init_occ)
     numb_decimal = []
     occurrences = []
 
@@ -165,15 +159,15 @@ def rng2(maximum, shot_count, qubit_count):
 
     for i in range(0,x):
         while True:
-            newsim = AerSimulator()
+            newsim2 = AerSimulator()
             # Create a new circuit
             new_circ = QuantumCircuit(qubit_count, qubit_count)
             for j in range(qubit_count):
                 new_circ.unitary(gate, [j], label="Haddy Daddy")
             for i in range(0, qubit_count-1):
                 new_circ.measure([i, i+1], [i, i+1])
-            compiled_new_circ = transpile(new_circ, newsim)
-            new_job = newsim.run(compiled_new_circ, shots=1)
+            compiled_new_circ = transpile(new_circ, newsim2)
+            new_job = newsim2.run(compiled_new_circ, shots=1)
             output = new_job.result()
 
             new_result = output.get_counts(compiled_new_circ)
@@ -181,7 +175,6 @@ def rng2(maximum, shot_count, qubit_count):
 
             binary_new_number = binarytodecimal((new_number))
 
-            print("binary_new_number: ", binary_new_number)
             if binary_new_number <= maximum:
                 break
 
@@ -196,7 +189,7 @@ def rng2(maximum, shot_count, qubit_count):
     numbs_below_max2 = []
     for i in range(0, len(numbs_below_max)):
         numbs_below_max2.append(binarytodecimal(str(numbs_below_max[i])))
-    return numbs_below_max2
+    return numbs_below_max2, occurences
 
 
 numbs, occ = rng2(50, 60, 6)
@@ -209,11 +202,7 @@ for i in range(0, len(numbs)):
     else:
         rng_dict[numbs[i]] = occ[i]
 
-print("rng_dict: ",rng_dict)
-print(numbs)
 
-print("len(rng_dict): ", len(rng_dict))
-print("occ sum: ", sum(occ))
 
 
 plt.plot(numbs, occ, linewidth=1)
@@ -223,4 +212,3 @@ plt.xlabel('Number')
 plt.ylabel('Occurrences')
 plt.title('10-Qubit RNG')
 plt.show()
-#look at previous commit
