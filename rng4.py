@@ -108,7 +108,7 @@ def rng(maximum, shot_count, qubit_count):
 def rng2(maximum, shot_count, qubit_count):
     print(math.sin(rng(90, 10, 7)))
 
-    gate = qi.Operator([[math.cos(rng(90, 10, 7)),math.sin(rng(90, 10, 7))], [-1*(math.sin(rng(90, 10, 7))),math.cos(rng(90, 10, 7))]])
+    gate = qi.Operator([[rounder(math.cos(rng(90, 10, 7)),4),roundsr(math.sin(rng(90, 10, 7)),4)], [-1*(math.sin(rng(90, 10, 7))),math.cos(rng(90, 10, 7))]])
 
     print(gate)
 
