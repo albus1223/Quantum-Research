@@ -18,6 +18,8 @@ def binarytodecimal(binary):
 #       aka Hadamard Gate
 gate = qi.Operator([[(1/np.sqrt(2)), (1/np.sqrt(2))], [(1/np.sqrt(2)), (-1/np.sqrt(2))]])
 
+print(gate)
+
 #Create simulator object
 simulator = AerSimulator()
 

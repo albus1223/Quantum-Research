@@ -106,9 +106,11 @@ def rng(maximum, shot_count, qubit_count):
 
 
 def rng2(maximum, shot_count, qubit_count):
+    print(math.sin(rng(90, 10, 7)))
 
+    gate = qi.Operator([[math.cos(rng(90, 10, 7)),math.sin(rng(90, 10, 7))], [-1*(math.sin(rng(90, 10, 7))),math.cos(rng(90, 10, 7))]])
 
-    gate = qi.Operator([[math.cos(rng(360, 10, 9)),math.sin(rng(360, 10, 9))], [-1*(math.sin(rng(360, 10, 9))),math.cos(rng(360, 10, 9))]])
+    print(gate)
 
     simulator2 = AerSimulator()
 

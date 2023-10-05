@@ -48,7 +48,6 @@ def rng(maximum, shot_count):
     # Returns counts
     counts = result.get_counts(compiled_circuit)
     random_numbers = list(counts.keys())
-    print("len(random_numbers): ",len(random_numbers))
     init_occ = 0
     numbs_below_max = []
     for i in range(0, len(random_numbers)):
@@ -57,7 +56,6 @@ def rng(maximum, shot_count):
             numbs_below_max.append(random_numbers[i])
 
     x = shot_count  - init_occ
-    print("initial occ sum is ", init_occ)
     numb_decimal = []
     occurrences = []
 
@@ -83,7 +81,6 @@ def rng(maximum, shot_count):
 
             binary_new_number = binarytodecimal((new_number))
 
-            print("binary_new_number: ", binary_new_number)
             if binary_new_number <= maximum:
                 break
 
@@ -101,7 +98,7 @@ def rng(maximum, shot_count):
     return numbs_below_max2, occurrences
 
 
-numbs, occ = rng(50, 10)
+numbs, occ = rng(50, 1000)
 
 rng_dict = {}
 
@@ -110,12 +107,6 @@ for i in range(0, len(numbs)):
         rng_dict[numbs[i]] += occ[i]
     else:
         rng_dict[numbs[i]] = occ[i]
-
-print("rng_dict: ",rng_dict)
-print(numbs)
-
-print("len(rng_dict): ", len(rng_dict))
-print("occ sum: ", sum(occ))
 
 
 plt.plot(numbs, occ, linewidth=1)
