@@ -100,7 +100,7 @@ def rng(maximum, shot_count, qubit_count):
     numbs_below_max2 = []
     for i in range(0, len(numbs_below_max)):
         numbs_below_max2.append(binarytodecimal(str(numbs_below_max[i])))
-    return (math.pi/180) * (numbs_below_max2[0])
+    return numbs_below_max2[0]
 
 
 
