@@ -119,7 +119,7 @@ def rng2(maximum, shot_count, qubit_count):
 
     # Add a H gate on qubit 0
     for i in range(qubit_count):
-        circuit.unitary(gate, [i], label="Haddy Daddy")
+        circuit.orthogonal(gate, [i], label="Haddy Daddy")
 
 
     # Map the quantum measurement to the classical bits
