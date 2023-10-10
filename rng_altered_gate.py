@@ -1,6 +1,8 @@
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import AerSimulator
 import matplotlib.pyplot as plt
+import math
+import qiskit.quantum_info as qi
 
 
 
@@ -12,22 +14,27 @@ def binarytodecimal(binary):
         decimal = decimal * 2 + int(digit)
     return decimal
 
+def gate(theta, circuit, i):
+    gate = qi.Operator([[math.cos(theta),-1*(math.sin(theta))], [math.sin(theta),math.cos(theta)]])
+    circuit.unitary(gate, i, label = "custom")
+
 
 def rng(maximum, shot_count):
     simulator = AerSimulator()
-
 
     # Create a Quantum Circuit acting on the q register
     circuit = QuantumCircuit(4, 4)
 
 
     # Add a H gate on qubit 0
-    circuit.h(0)
+    for i in range(6):
+        gate(45, circuit, i)
 
 
     # Map the quantum measurement to the classical bits
-    for i in range(0,5):
-        circuit.measure([i, i+1], [i, i+1])
+    circuit.measure([0, 1], [0, 1])
+    circuit.measure([2, 3], [2, 3])
+    circuit.measure([4, 5], [4, 5])
 
 
     # Compile the circuit for the support instruction set (basis_gates)
@@ -107,7 +114,7 @@ for i in range(0, len(numbs)):
         rng_dict[numbs[i]] = occ[i]
 
 
-plt.plot(numbs, occ, linewidth=1)
+plt.bar(numbs, occ, linewidth=1)
 
 
 plt.xlabel('Number')

@@ -108,9 +108,10 @@ def rounder(number, decimalPlaces):
 
 
 def rng2(maximum, shot_count, qubit_count):
-    print(math.sin(rng(90, 10, 7)))
 
-    gate = qi.Operator([[rounder(math.cos(rng(90, 10, 7)/2),2),-1*(rounder(math.sin(rng(90, 10, 7)/2),2))], [rounder(math.sin(rng(90, 10, 7)/2),2),rounder(math.cos((rng(90, 10, 7))/2),2)]])
+    theta = rng(90, 10, 7)
+    #one random value for whole matrix
+    gate = qi.Operator([[math.cos(theta), math.sin(-theta)], [math.sin(theta), math.cos(theta)]])
 
     print(gate)
 
@@ -193,7 +194,7 @@ def rng2(maximum, shot_count, qubit_count):
     numbs_below_max2 = []
     for i in range(0, len(numbs_below_max)):
         numbs_below_max2.append(binarytodecimal(str(numbs_below_max[i])))
-    return numbs_below_max2, occurences
+    return numbs_below_max2, occurrences
 
 
 numbs, occ = rng2(50, 60, 6)
