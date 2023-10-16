@@ -109,7 +109,7 @@ def rounder(number, decimalPlaces):
 
 def rng2(maximum, shot_count, qubit_count):
 
-    theta = rng(90, 10, 7)
+    theta = rng(90, 1, 7)
     #one random value for whole matrix
     gate = qi.Operator([[math.cos(theta), math.sin(-theta)], [math.sin(theta), math.cos(theta)]])
 
@@ -197,7 +197,7 @@ def rng2(maximum, shot_count, qubit_count):
     return numbs_below_max2, occurrences
 
 
-numbs, occ = rng2(50, 60, 6)
+numbs, occ = rng2(50, 1000, 1000)
 
 rng_dict = {}
 
@@ -210,7 +210,7 @@ for i in range(0, len(numbs)):
 
 
 
-plt.plot(numbs, occ, linewidth=1)
+plt.bar(numbs, occ, linewidth=1)
 
 
 plt.xlabel('Number')

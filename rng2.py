@@ -18,11 +18,12 @@ def rng(maximum, shot_count):
 
 
     # Create a Quantum Circuit acting on the q register
-    circuit = QuantumCircuit(4, 4)
+    circuit = QuantumCircuit(6, 6)
 
 
     # Add a H gate on qubit 0
-    circuit.h(0)
+    for i in range(0, 6):
+        circuit.h(i)
 
 
     # Map the quantum measurement to the classical bits
@@ -107,7 +108,7 @@ for i in range(0, len(numbs)):
         rng_dict[numbs[i]] = occ[i]
 
 
-plt.plot(numbs, occ, linewidth=1)
+plt.bar(numbs, occ, linewidth=1)
 
 
 plt.xlabel('Number')

@@ -23,18 +23,18 @@ def rng(maximum, shot_count):
     simulator = AerSimulator()
 
     # Create a Quantum Circuit acting on the q register
-    circuit = QuantumCircuit(4, 4)
+    circuit = QuantumCircuit(1, 1)
 
-
+    theta_input = int(input("theta: "))
     # Add a H gate on qubit 0
-    for i in range(6):
-        gate(45, circuit, i)
+    for i in range(1):
+        gate(theta_input, circuit, i)
 
 
     # Map the quantum measurement to the classical bits
-    circuit.measure([0, 1], [0, 1])
-    circuit.measure([2, 3], [2, 3])
-    circuit.measure([4, 5], [4, 5])
+    circuit.measure([0], [0])
+    #circuit.measure([0, 1], [0, 1])
+    #circuit.measure([2, 3], [2, 3])
 
 
     # Compile the circuit for the support instruction set (basis_gates)
@@ -71,12 +71,13 @@ def rng(maximum, shot_count):
         while True:
             newsim = AerSimulator()
             # Create a new circuit
-            new_circ = QuantumCircuit(6, 6)
-            for j in range(6):
+            new_circ = QuantumCircuit(1, 1)
+            for j in range(1):
                 new_circ.h(j)
-            new_circ.measure([0, 1], [0, 1])
-            new_circ.measure([2, 3], [2, 3])
-            new_circ.measure([4, 5], [4, 5])
+            new_circ.measure([0], [0])
+            #new_circ.measure([0, 1], [0, 1])
+            #new_circ.measure([2, 3], [2, 3])
+            #new_circ.measure([4, 5], [4, 5])
             compiled_new_circ = transpile(new_circ, newsim)
             new_job = newsim.run(compiled_new_circ, shots=1)
             output = new_job.result()
