@@ -108,8 +108,8 @@ for i in range(0, len(numbs)):
         rng_dict[numbs[i]] = occ[i]
 
 
-plt.bar(numbs, occ, linewidth=1)
-
+#plt.scatter(numbs, occ, s=occ, facecolor='C0', edgecolor='k')
+plt.plot(numbs, occ)
 
 plt.xlabel('Number')
 plt.ylabel('Occurrences')
