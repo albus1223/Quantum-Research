@@ -1,7 +1,6 @@
-from qiskit import QuantumCircuit, transpile
+from qiskit import QuantumCircuit, transpile, ClassicalRegister, QuantumRegister
 from qiskit_aer import AerSimulator
 import matplotlib.pyplot as plt
-
 
 
 
@@ -113,5 +112,5 @@ plt.plot(numbs, occ)
 
 plt.xlabel('Number')
 plt.ylabel('Occurrences')
-plt.title('10-Qubit RNG')
+plt.title('6-Qubit RNG')
 plt.show()
